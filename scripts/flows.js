@@ -31,9 +31,9 @@ function createBranch(model) {
 			.each(
 					stepObj,
 					function(s, step) {
-						var stepCanvas = bCanvas.append("g").attr("id",
-								step.name.replace(/\s/g, "")), wrapLength = step.wrapLength ? step.wrapLength
-								: 70;
+                        step.id = step.name.replace(/\s/g, "");
+                        var stepCanvas = bCanvas.append("g").attr("id", step.id), wrapLength = step.wrapLength ? step.wrapLength
+                            : 70;
 						var textPos = getAlignmentPos(step);
 						var text = stepCanvas
 								.append("text")
@@ -51,7 +51,7 @@ function createBranch(model) {
 
 						if (step.processTitle && !step.drilled) {
 							var titleAngle = step.processTitle.angle ? step.processTitle.angle : 0;
-							stepCanvas
+							var processTitleText = stepCanvas
 									.insert("g", ":first-child")
 									.attr(
 											"transform",
@@ -65,6 +65,37 @@ function createBranch(model) {
 									.text(step.processTitle.name).style("fill",
 											step.link.stroke).style(
 											"font-size", "13px");
+								processTitleText.style("cursor", "pointer");
+								processTitleText.on(
+										"mouseover",
+										function() {
+											processTitleText.style("fill", "black")
+													.style("fill-opacity", 1);
+											processTitleText.style("fill", "red").style(
+													"fill-opacity", 1);
+										}).on(
+										"mouseout",
+										function() {
+											processTitleText.style("fill",
+													step.link.stroke).style(
+													"fill-opacity",
+													step.opacity ? step.opacity
+															: 1);
+											processTitleText.style("fill", "black").style(
+													"fill-opacity",
+													step.opacity ? step.opacity
+															: 1);
+										}).on(
+										"click",
+										function() {
+											setViewSelector(true, "deployments", "drilled");
+											createDrilledView(JSON.parse(JSON
+													.stringify(model)));
+										});
+								processTitleText.transition(nodeTransition).style("fill",
+										step.link.stroke).style("stroke",
+										"none");
+							
 						}
 
 						if (step.node) {

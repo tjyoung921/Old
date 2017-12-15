@@ -115,6 +115,8 @@ var createLegends = function() {
 		break;
 	}
 	
+
+	
 	wrapG = gLegend.append("g").attr("transform",
 			"translate(0, " + ((gap * counter) + legendMargin) + ")");
 	wrapG.append("circle").attr("cx", 50).attr("cy", 0).attr("r", 5).style(
@@ -185,4 +187,8 @@ var createLegends = function() {
 	wrapG.append("text").attr("x", 60).attr("y", 5).attr("font-size", "11px")
 			.text("Process with Legal and Compliance involvment");
 	counter++;
+	if(view!= "map"){
+	wrapG.append("image").attr("width", "300px").attr("height", "150px").attr("x", 300).attr("y", -270)
+	.attr("xlink:href", "img/assessments/imageLegend.png");
+	}
 }

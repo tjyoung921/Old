@@ -1,8 +1,32 @@
+function createBranchDownloadLink(model) {
+    console.log("model: ", model);
+    var dom = getDom();
+    dom.find("div#pdfLink").remove();
+    if (model && (model.stepName === "HireToRetire" || model.stepName === "ITDesignToBuild" || model.stepName === "ProcureToPay" || model.stepName === "QuoteToCash" || model.stepName === "PlanToForecast")) {
+        var container = $("<div/>", {
+            class: "placeCM",
+            id: "pdfLink"
+        });
+        container.append($("<img/>", {
+            attr: {"src": "img/nodes/linkButton.png"},
+            click: function () {
+                var link = document.createElement("a");
+                link.download = model.stepName;
+                link.href = './pdf/' + model.stepName + '.pdf';
+                link.click();
+            }
+        }));
+        console.log("model: ", model);
+        dom.append(container);
+    }
+}
+
 function createDrilledView(model) {
 // console.log("createDrilledView model: ",model);
 	var dom = getDom();
 	var svgWidth = dom.width();
 	var svgHeight = dom.height();
+    createBranchDownloadLink(model);
 	resetZoomPan();
 	clearAllFlowElements();
 	drawCenterNode({
@@ -134,6 +158,7 @@ function createBreadCrumbsElements(){
 			clickableBtn.click(function(){
 				clearAllFlowElements();				
 				if(c === 0){
+                    createBranchDownloadLink();
 					resetZoomPan();
 					setViewSelector(true, "map", "higherView");
 					drawCenterNode(centerNodePosition());

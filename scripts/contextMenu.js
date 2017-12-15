@@ -62,18 +62,21 @@ function getFeatureOptions(step){
 			{name: "Deployments View", icon: "fa-suitcase", propFnc: function(){
 				createAssessments(false);
 				createUseCaseView(false);
+				createDeploymentsView(true);
 				setViewSelector(true, "deployments", "drilled");
 				createLegends();
 			}},
 			{name: "Opportunities View", icon: "fa-file-photo-o", propFnc: function(){
 				createAssessments(true);
 				createUseCaseView(false);
+				createDeploymentsView(false);
 				setViewSelector(true, "opportunities", "drilled");
 				createLegends();
 			}},
 			{name: "Use Case View", icon: "fa-circle-o-notch", propFnc: function(){
 				createUseCaseView(true);
 				createAssessments(false);
+				createDeploymentsView(false);
 				setViewSelector(true, "useCase", "drilled");
 				createLegends();
 			}}
@@ -92,22 +95,18 @@ function getFeatureOptions(step){
 				createLegends();		
 			}}
 		];
-	}else{		
-		features = [
-			{name: "Upload File", icon: "fa-upload", propFnc: function(){
-				console.log("Upload File");
-				openFileExplorer();
-			}},
-			{name: "View Uploaded Data", icon: "fa-table", propFnc: function(){
-				console.log("View Uploaded Data");			
-			}},
-			{name: "Use Uploaded Data", icon: "fa-play", propFnc: function(){
-				console.log("Use Uploaded Data");			
-			}},
-			{name: "Remove File", icon: "fa-trash", propFnc: function(){
-				console.log("Delete File");			
-			}},
-		];
+	}else{
+        features = [
+            {name: "Upload File", icon: "fa-upload", propFnc: function(){
+                openFileExplorer(step);
+            }},
+            {name: "View Uploaded Data", icon: "fa-table", propFnc: function(){
+                fetchUploadedFile(step);
+            }},
+            {name: "Remove File", icon: "fa-trash", propFnc: function(){
+                removeUploadedFile(step);
+            }},
+        ];
 	}
 	
 	return features;
