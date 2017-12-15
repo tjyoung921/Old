@@ -9,7 +9,6 @@ var getMapModels = function(){
 		{stepName: "TalentPlanningAcquisition", p2pObject: TalentPlanningAcquisitionModel()},
 		{stepName: "AssetAcquireToRetire", p2pObject: AssetAcquireToRetireModel()},
 		{stepName: "ITStrategyToArchitecture", p2pObject: ITStrategyToArchitectureModel()},
-		
 	];	
 	return mapModel;
 }
@@ -26,6 +25,7 @@ var QuoteToCashModel = function() {
 		angle: -180,		
 		levels : customerSetupLevels(),
 		assessments: QuoteToCashAssessments("customerSetup"),
+		useCase: [{name: "QuoteToCash1", link: {x: 20, y: -80}}, {name: "QuoteToCashPO", link: {x: -105, y: 90}}]
 	}, {
 		name : "Credit, Pricing, Quote",
 		align: "up",
@@ -33,6 +33,8 @@ var QuoteToCashModel = function() {
 		angle: -200,
 		assessments: QuoteToCashAssessments("creditPricingQuote"),
 		levels : creditPricingQuoteLevels(),
+		useCase: {name: "QuoteToCash2U", link: {x: -90, y: 10}},
+		deploymentsCase: {name: "QuoteToCash2", link: {x: -90, y: 10}}
 	}, {
 		name : "Contract Administration",
 		align: "up",
@@ -40,7 +42,7 @@ var QuoteToCashModel = function() {
 		angle: -180,
 		linkedTo: [[0, 2]],
 		assessments: QuoteToCashAssessments("contractAdministration"),
-		levels : contractAdministrationLevels()
+		levels : contractAdministrationLevels(),
 	}, {
 		name : "Order Management",
 		align: "down",
@@ -87,7 +89,8 @@ var ProcureToPayModel = function() {
 		startPos: startPos,
 		flowDirection: "forward",
 		angle: -200,
-		levels : categoryStrategyLevels()
+		levels : categoryStrategyLevels(),
+		useCase: {name: "ProcureToPayPO", link: {x: -160, y: 110}},
 	}, {
 		name : "Sourcing and Contracts",
 		align: "up",
@@ -115,7 +118,8 @@ var ProcureToPayModel = function() {
 		node : "end",
 		angle: -180,
 		assessments: procureToPayAssessments("pOsAndRecieving"),
-		levels : pOsAndRecievingLevels()
+		levels : pOsAndRecievingLevels(),
+		useCase: {name: "ProcureToPay5B", link: {x: -40, y: -85}},
 	}, {
 		name : "Invoice Matching",
 		align: "down",
@@ -124,7 +128,8 @@ var ProcureToPayModel = function() {
 		angle: -180,
 		assessments: procureToPayAssessments("invoiceMatching"),
 		levels : invoiceMatchingLevels(),
-		contents: branchContentView("ProcureToPay")
+		contents: branchContentView("ProcureToPay"),
+		useCase: {name: "ProcureToPay6", link: {x: 10, y: 20}}
 	}, {
 		name : "Payment Disburments",
 		align: "down",
@@ -188,14 +193,17 @@ var PlanToDeliveryModel = function() {
 		node : "end",
 		angle: -270,
 		drillStepLength: 150,
-		levels : inboundLogisticsWarehousingLevels()
+		levels : inboundLogisticsWarehousingLevels(),
+		useCase: {name: "PlanToDelivery6B", link: {x: -25, y: 50}}
 	}, {
 		name : "Outbound Logistics",
 		align: "left",
 		angle: -270,
 		node : "end",
 		end: "end",
-		levels : outboundLogisticsLevels()
+		levels : outboundLogisticsLevels(),
+		deploymentsCase: {name: "PlanToDelivery7", link: {x: 35, y: -25}},
+		useCase: {name: "PlanToDelivery7B", link: {x: 20, y: -10}}
 	} ];
 	
 	return generateProgressiveLinkPosition(p2pObject, "PlanToDelivery", startPos, "down");
@@ -216,7 +224,8 @@ var ProductLineManagementModel = function() {
 		flowDirection: "forward",
 		assessments: procureToPayAssessments("tbd"),
 		angle: -300,
-		levels : materialCharacterizationLevels()
+		levels : materialCharacterizationLevels(),
+		useCase: {name: "ProductLineManagement2", link: {x: -30, y: 40}}
 	}, {
 		name : "Product and Process Change Management",
 		align: "right",
@@ -225,6 +234,7 @@ var ProductLineManagementModel = function() {
 		node : "end",
 		angle: -270,
 		levels : productProcessChangeManagementLevels(),
+		deploymentsCase: {name: "ProductLineManagement3", link: {x: -30, y: 10}}
 	}, {
 		name : "Product Life Cycle Mangement",
 		align: "down",
@@ -233,7 +243,8 @@ var ProductLineManagementModel = function() {
 		processTitle: {name: "Product Line Management", x: 10, y: -10},	
 		stepLength: 180,
 		assessments: procureToPayAssessments("tbd"),
-		levels : productLifeCycleMangementLevels()
+		levels : productLifeCycleMangementLevels(),
+		deploymentsCase: {name: "ProductLineManagement4", link: {x: -25, y: 60}}
 	}, {
 		name : "Product Profitability",
 		align: "down",
@@ -262,7 +273,8 @@ var PlanToForecastModel = function() {
 		flowDirection: "forward",
 		angle: -300,
 		assessments: planToForecastAssessments("strategicPlanning"),
-		levels : strategicPlanningLevels()
+		levels : strategicPlanningLevels(),
+		useCase: {name: "PlanToForecastPO", link: {x: -110, y: 100}},
 	}, {
 		name : "Financial Planning",
 		align: "upright",
@@ -270,6 +282,7 @@ var PlanToForecastModel = function() {
 		angle: -320,
 		levels : financialPlanningLevels(),
 		assessments: planToForecastAssessments("financialPlanning"),
+		useCase: {name: "PlanToForecast2", link: {x: -45, y: 45}}
 	}, {
 		name : "Capital Planning",
 		align: "upright",
@@ -304,7 +317,8 @@ var PlanToForecastModel = function() {
 		angle: -270,
 		assessments: planToForecastAssessments("businessAnalytics"),
 		levels : businessAnalyticsLevels(),
-		linked: [RecordToReportModel()]
+		linked: [RecordToReportModel()],
+		useCase: {name: "PlanToForecast6", link: {x: -90, y: 25}}
 	}, {
 		name : "Rolling Forcast",
 		align: "right",
@@ -336,6 +350,7 @@ var RecordToReportModel = function() {
 		stepLength: 70,
 		drillStepLength: 150,
 		levels : reportingLevels(),
+		deploymentsCase: {name: "RecordToReport2", link: {x: -35, y: 25}}
 	}, {
 		name : "Consolidation",
 		align: "right",
@@ -343,7 +358,8 @@ var RecordToReportModel = function() {
 		angle: -75,
 		drillStepLength: 150,
 		stepLength: 70,
-		levels : consolidationLevels()
+		levels : consolidationLevels(),
+		useCase: {name: "RecordToReportPO", link: {x: -5, y: -90}},
 	}, {
 		name : "Internet-Company",
 		align: "right",
@@ -370,6 +386,7 @@ var RecordToReportModel = function() {
 		drillStepLength: 150,
 		stepLength: 70,
 		levels : closingJourneyEntriesLevels(),
+		useCase: {name: "RecordToReport6", link: {x: -35, y: 35}}
 	},{
 		name : "GL and Subledger Maintenance",
 		align: "right",
@@ -379,6 +396,8 @@ var RecordToReportModel = function() {
 		drillStepLength: 150,
 		stepLength: 70,
 		levels : gLSubledgerMaintenanceLevels(),
+		useCase: {name: "RecordToReport7U", link: {x: -60, y: -45}},
+		deploymentsCase: {name: "RecordToReport7", link: {x: -20, y: 20}}
 	},{
 		name : "Accounting Policy Maintenance",
 		align: "right",
@@ -386,7 +405,8 @@ var RecordToReportModel = function() {
 		drillStepLength: 150,
 		assessments: procureToPayAssessments("tbd"),
 		levels : accountingPolicyMaintenanceLevels(),
-		end: "end"
+		end: "end",
+		useCase: {name: "RecordToReport8", link: {x: 20, y: 10}}
 	}];
 	return {p2pObject: p2pObject, stepName: "RecordToReport", flowDir: "down"};
 }
@@ -409,7 +429,7 @@ var InnovationToCommercializationModel = function() {
 		name : "Innovation Portfolio Mangement",
 		align: "down",
 		node : "end",
-		processTitle: {name: "Innovation To Commercialization", x: 10, y: 40},
+		processTitle: {name: "Innovation To Commercialization", x: 0, y: 40},
 		angle: -360,
 		stepLength: 150,
 		wrapLength: 200,
@@ -496,7 +516,8 @@ var TalentPlanningAcquisitionModel = function() {
 		startPos: startPos,
 		flowDirection: "forward",
 		angle: -40,
-		levels : talentStrategyCompensationBenifitPlanningLevels()
+		levels : talentStrategyCompensationBenifitPlanningLevels(),
+		useCase: {name: "TalentPlanningAcquisitionPO", link: {x: -110, y: 100}},
 	}, {
 		name : "Identify Requirements",
 		align: "right",
@@ -549,7 +570,8 @@ var HireToRetireModel = function() {
 		drillStepLength: 150,
 		wrapLength: 200,
 		angle: -90,
-		levels : []
+		levels : [],
+		useCase: {name: "HireToRetirePO", link: {x: -110, y: 100}},
 	},{
 		name : "On-boarding",
 		align: "right",
@@ -560,7 +582,7 @@ var HireToRetireModel = function() {
 		drillStepLength: 220,
 		wrapLength: 200,
 		angle: -90,
-		levels : extentOfferCultivateAcceptanceHRLevels()
+		levels : extentOfferCultivateAcceptanceHRLevels(),
 	}, {
 		name : "Payroll, T&A, Benifits Setup",
 		align: "right",
@@ -705,20 +727,21 @@ var ITStrategyToArchitectureModel = function() {
 		node : "end",
 		angle: -180,
 		levels : iTPortfolioManagementLevels(),
+		useCase: {name: "ITStrategyToArchitecture2U", link: {x: -35, y: 40}},
+		deploymentsCase: {name: "ITStrategyToArchitecture2", link: {x: -35, y: 40}}
 	}, {
 		name : "Define IT Architecture",
 		align: "down",
 		node : "end",
 		angle: -180,
 //		assessments: procureToPayAssessments("pOsAndRecieving"),
-		levels : defineITArchitectureLevels()
+		levels : defineITArchitectureLevels(),
 	}, {
 		name : "Define IT Design and Build Standards",
 		align: "left",
 		processTitle: {name: "IT Strategy To Architecture", x: 10, y: -10},
 		node : "end",
 		angle: -180,
-		levels : defineITDesignBuildStandardsLevels(),
 		linked: [ITDesignToBuildModel(), ITTransitionToOperationCIModel()],
 		end: "end"
 	}];
@@ -734,6 +757,7 @@ var ITDesignToBuildModel = function() {
 		node : "start",
 		angle: -120,
 		levels : [],
+		useCase: {name: "ITDesignToBuildPO", link: {x: -100, y: 95}},
 	},{
 		name : "Business Requirements and Functional Design",
 		align: "up",
@@ -742,7 +766,8 @@ var ITDesignToBuildModel = function() {
 		node : "end",
 //		assessments: procureToPayAssessments("sourcingContracts"),
 		angle: -180,
-		levels : businessRequirementsFunctionalDesignLevels()
+		levels : businessRequirementsFunctionalDesignLevels(),
+		//useCase: {name: "ITDesignToBuildPO", link: {x: -300, y: 110}},
 	},{
 		name : "Technical Requirements and Design",
 		align: "up",
@@ -751,7 +776,6 @@ var ITDesignToBuildModel = function() {
 		drillStepLength: 220,
 //		assessments: procureToPayAssessments("pOsAndRecieving"),
 		levels : technicalRequirementsDesignLevels(),
-		useCase: {name: "Amelia", link: {x: 30, y: -90}}
 	}, {
 		name : "Capacity Planning and Management",
 		align: "up",
@@ -787,14 +811,19 @@ var ITTransitionToOperationCIModel = function() {
 		wrapLength: 150,
 //		assessments: procureToPayAssessments("sourcingContracts"),
 		angle: -180,
-		levels : incidentManagementContinuousImprovementLevels()
+		levels : incidentManagementContinuousImprovementLevels(),
+		deploymentsCase: {name: "Amelia", link: {x: 30, y: 40}},
+		//useCase: {name: "ItTransitionToOperationCI2UAmelia", link: {x: -20, y: -50}},
+		useCase: {name: "ItTransitionToOperationCI2U", link: {x: 30, y: 40}}
 	},{
 		name : "Application Performance Management",
 		align: "down",
 		node : "end",
 		angle: -180,
 //		assessments: procureToPayAssessments("paymentDisburments"),
-		levels : applicationPerformanceManagementLevels()
+		levels : applicationPerformanceManagementLevels(),
+		deploymentsCase: {name: "ItTransitionToOperationCI3", link: {x: 25, y: 25}},
+		useCase: {name: "ItTransitionToOperationCI3B", link: {x: -30, y: 25}}
 	}, {
 		name : "Release and Deployment",
 		align: "down",
@@ -803,7 +832,8 @@ var ITTransitionToOperationCIModel = function() {
 		flowDirection: "backward",
 		angle: -180,
 		levels : releaseAndDeploymentLevels(),
-		contents: branchContentView("ITTransitionToOperationCI")
+		contents: branchContentView("ITTransitionToOperationCI"),
+		useCase: {name: "ItTransitionToOperationCI4", link: {x: -40, y: 40}}
 	}, {
 		name : "Support Catalog and Transition Planning",
 		align: "downleft",

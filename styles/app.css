@@ -291,3 +291,76 @@ select:focus, button:focus {
 .boxShadowTop{
   box-shadow: 0 -5px 5px -5px #333;
 }
+
+.modal{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	height: 100%;
+}
+
+.modal .modalContent{
+	width: 75%;
+	height: 75%;
+	background: #FFF;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px black;
+}
+
+.modal .modalContent .header{
+	width: 100%;
+	height: 50px;
+	/*border-bottom: 1px dashed #3f849e;*/
+}
+
+.modal .modalContent .header button#close{
+	float: right;
+	height: 100%;
+	width: 50px;
+	background: none;
+	border: none;
+	font-size: 25px;
+	color: #CCC;
+	cursor: pointer;
+}
+
+.modal .modalContent .content{
+	width: 100%;
+	height: calc(100% - 50px);
+}
+
+.modal .modalContent .content .sideBar{
+	width: 150px;
+	height: 100%;
+	border-right: 1px dashed #3f849e;
+	float: left;
+}
+.modal .modalContent .content .itemContent{
+	/*width: calc(100% - 151px);*/
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+
+.modal .modalContent .content .itemContent img{
+	width: 100%;
+	height: 100%;
+}
+
+#pdfLink{
+	position: absolute;
+	top: 23%;
+	left: 40px;
+}
+
+#pdfLink img{
+	width: 85px;
+}
